@@ -57,6 +57,8 @@
 
 ## Install
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/tiaanduplessis/set-nested-prop.svg)](https://greenkeeper.io/)
+
 ```sh
 $ npm install --save set-nested-prop
 # OR
