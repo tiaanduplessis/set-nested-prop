@@ -1,6 +1,6 @@
 {
   "name": "set-nested-prop",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Set nested object property (supports custom seperator, mutation, forcing creation & multi set)",
   "license": "MIT",
   "source": "src/index.js",
@@ -34,12 +34,16 @@
     "standard": "^11.0.1"
   },
   "standard": {
-    "ignore": ["dist"],
+    "ignore": [
+      "dist"
+    ],
     "env": {
       "jest": true
     }
   },
   "babel": {
-    "presets": ["env"]
+    "presets": [
+      "env"
+    ]
   }
 }
