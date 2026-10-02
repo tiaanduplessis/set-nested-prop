@@ -15,10 +15,11 @@
   "bugs": "https://github.com/tiaanduplessis/set-nested-prop/issues",
   "author": "Tiaan du Plessis",
   "scripts": {
-    "test": "jest",
-    "lint": "standard --fix",
+    "test": "jest --runInBand",
+    "lint": "standard",
     "build": "microbundle",
-    "coverage": "jest --coverage"
+    "coverage": "jest --runInBand --coverage",
+    "check": "npm run lint && npm run build && npm test"
   },
   "keywords": [
     "object",

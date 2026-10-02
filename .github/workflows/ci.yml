@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22.23.3'
+      - name: Install verified Yarn without lifecycle scripts
+        run: |
+          curl --fail --silent --show-error --location https://registry.npmjs.org/yarn/-/yarn-1.22.22.tgz --output /tmp/yarn.tgz
+          echo 'a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e  /tmp/yarn.tgz' | sha512sum --check
+          mkdir /tmp/locked-yarn
+          tar -xzf /tmp/yarn.tgz -C /tmp/locked-yarn
+      - name: Install historical locked dependencies without lifecycle scripts
+        run: node /tmp/locked-yarn/package/bin/yarn.js install --frozen-lockfile --ignore-scripts --ignore-engines --non-interactive
+      - run: npm run check
+      - run: npm run coverage
+      - name: Verify committed distributions match the build
+        run: git diff --exit-code -- dist
